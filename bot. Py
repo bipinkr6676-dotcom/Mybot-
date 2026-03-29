@@ -1,0 +1,24 @@
+import logging
+from telegram import Update, ChatPermissions
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
+
+logging.basicConfig(level=logging.INFO)
+
+BOT_TOKEN = "8609410180:AAGmBD71Zr0DHKiuBP4RS0OcjBylaeAq2Yc"
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Hello! Main tumhara bot hun. /help likho.")
+
+async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Commands:\n/start\n/help\n/rules")
+
+async def rules(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Rules:\n1. Respectful raho\n2. Spam mat karo")
+
+app = ApplicationBuilder().token(BOT_TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CommandHandler("help", help_cmd))
+app.add_handler(CommandHandler("rules", rules))
+
+print("Bot running...")
+app.run_polling()
